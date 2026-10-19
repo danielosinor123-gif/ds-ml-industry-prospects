@@ -171,3 +171,11 @@ highest-value extension of this project.
 - McKinsey — *The State of AI* (annual surveys)
 - US Bureau of Labor Statistics — *Data Scientists* occupational outlook
 - Gardner & McKenzie (1985) — damped-trend exponential smoothing
+
+---
+
+## Where to find this project
+
+- **Live showcase (Hugging Face Space):** https://danielaxv3-ds-ml-industry-prospects.hf.space
+- **GitHub:** https://github.com/danielosinor123-gif/ds-ml-industry-prospects
+- **Hugging Face repo:** https://huggingface.co/spaces/danielaxv3/ds-ml-industry-prospects
