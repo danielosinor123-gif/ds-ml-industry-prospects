@@ -176,6 +176,6 @@ highest-value extension of this project.
 
 ## Where to find this project
 
-- **Live showcase (Hugging Face Space):** https://danielaxv3-ds-ml-industry-prospects.hf.space
+- **Live showcase (Hugging Face Space):** https://danielaxv3-ds-ml-industry-prospects.static.hf.space
 - **GitHub:** https://github.com/danielosinor123-gif/ds-ml-industry-prospects
 - **Hugging Face repo:** https://huggingface.co/spaces/danielaxv3/ds-ml-industry-prospects
