@@ -1,3 +1,13 @@
+---
+title: The NEXT Top Industries for DS/ML
+emoji: 📈
+colorFrom: indigo
+colorTo: green
+sdk: static
+app_file: index.html
+pinned: true
+---
+
 # The NEXT Top Industries for Data Science & Machine Learning
 
 ### Beyond today's top-5: a 2026–2030 ranking of 13 candidate industries — who holds, who breaks in

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Predicting the next top industries for Data Science & ML: a 2026-2030 composite ranking of 13 candidate industries.">
+<title>The NEXT Top Industries for Data Science & ML</title>
+<style>
+  :root {
+    --teal: #00A499; --indigo: #6C3483; --green: #27AE60;
+    --amber: #F1C40F; --red: #C0392B; --slate: #34495E;
+    --ink: #1d2733; --muted: #5c6b7a; --bg: #f6f8fa; --card: #ffffff;
+    --line: #e3e9ef;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: "Segoe UI", system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--ink); line-height: 1.55; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+
+  /* hero */
+  .hero { background: linear-gradient(135deg, #17203a 0%, #2c1a4d 60%, #123f38 100%); color: #fff; padding: 54px 0 46px; }
+  .hero .kicker { font-size: 12.5px; letter-spacing: 2.5px; text-transform: uppercase; color: #9fb3c8; font-weight: 600; }
+  .hero h1 { font-size: 34px; line-height: 1.15; margin: 10px 0 12px; font-weight: 800; }
+  .hero p.sub { color: #c5d3e0; font-size: 16px; max-width: 760px; }
+  .chips { margin-top: 20px; display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip { background: rgba(255,255,255,.10); border: 1px solid rgba(255,255,255,.18); color: #dbe6f0; font-size: 12.5px; padding: 5px 12px; border-radius: 999px; }
+
+  section { padding: 38px 0 8px; }
+  h2 { font-size: 21px; font-weight: 800; margin-bottom: 4px; }
+  p.note { color: var(--muted); font-size: 14px; margin-bottom: 18px; }
+
+  /* results cards */
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 14px; margin-bottom: 10px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 16px 16px 14px; position: relative; box-shadow: 0 1px 3px rgba(16,32,48,.05); }
+  .card .rank { font-size: 12px; font-weight: 700; color: var(--muted); letter-spacing: 1px; }
+  .card .name { font-size: 15.5px; font-weight: 800; margin: 3px 0 8px; min-height: 42px; }
+  .badge { display: inline-block; font-size: 10.5px; font-weight: 700; letter-spacing: .4px; padding: 2.5px 9px; border-radius: 999px; margin-bottom: 10px; }
+  .badge.inc { background: #e8eef7; color: #1F6FB2; }
+  .badge.cha { background: #e4f6ec; color: #1e8449; }
+  .card .score { font-size: 26px; font-weight: 800; }
+  .card .meta { font-size: 12.5px; color: var(--muted); margin-top: 6px; }
+  .card.c1 { border-top: 3px solid var(--indigo); }
+  .card.c2 { border-top: 3px solid var(--teal); }
+  .card.c3 { border-top: 3px solid var(--green); }
+  .card.c4 { border-top: 3px solid var(--amber); }
+  .card.c5 { border-top: 3px solid #B58AD1; }
+
+  /* verdicts */
+  .verdicts { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; margin-top: 8px; }
+  .verdict { background: var(--card); border: 1px solid var(--line); border-left: 4px solid var(--line); border-radius: 10px; padding: 14px 16px; font-size: 14px; }
+  .verdict b { display: block; font-size: 12px; letter-spacing: 1.2px; text-transform: uppercase; margin-bottom: 5px; }
+  .v-hold { border-left-color: #1F6FB2; } .v-hold b { color: #1F6FB2; }
+  .v-in { border-left-color: var(--green); } .v-in b { color: #1e8449; }
+  .v-out { border-left-color: var(--red); } .v-out b { color: var(--red); }
+
+  /* charts */
+  .chart-wide, .grid2 { margin-top: 16px; }
+  figure { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 12px; margin-bottom: 14px; }
+  figure img { width: 100%; height: auto; border-radius: 6px; }
+  figcaption { font-size: 12.5px; color: var(--muted); padding: 8px 4px 2px; }
+  .grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)); gap: 14px; }
+
+  /* method + links */
+  .panel { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 18px 20px; font-size: 14px; }
+  .panel code { background: #eef2f6; padding: 1.5px 6px; border-radius: 5px; font-size: 12.5px; }
+  .links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
+  .links a { text-decoration: none; font-size: 13.5px; font-weight: 600; color: #2c3e50; background: #eef2f6; border: 1px solid var(--line); padding: 8px 14px; border-radius: 8px; }
+  .links a:hover { background: #e2e9f0; }
+
+  footer { margin: 40px 0 46px; padding-top: 18px; border-top: 1px solid var(--line); color: var(--muted); font-size: 12.5px; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="wrap">
+    <div class="kicker">Data science portfolio project</div>
+    <h1>The NEXT Top Industries for<br>Data Science & Machine Learning</h1>
+    <p class="sub">Beyond today's top-5: a 2026&ndash;2030 composite ranking of <b>13 candidate industries</b> &mdash; 5 incumbents vs 8 rising challengers &mdash; forecast with a backtest-weighted ensemble and scored on a transparent prospect index.</p>
+    <div class="chips">
+      <span class="chip">13 candidates</span>
+      <span class="chip">2026&ndash;2030 horizon</span>
+      <span class="chip">ensemble + 90% bootstrap CIs</span>
+      <span class="chip">reproducible (seed 42)</span>
+      <span class="chip">runs on real data via --from-csv</span>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <section>
+    <h2>The predicted next top 5 (2026&ndash;2030)</h2>
+    <p class="note">Composite prospect index: growth 30% &middot; scale 25% &middot; investment 20% &middot; jobs 15% &middot; adoption 10% (min-max normalised across all 13 candidates).</p>
+    <div class="cards">
+      <div class="card c1"><div class="rank">#1</div><div class="name">AI Infrastructure</div><span class="badge inc">INCUMBENT &middot; HOLDS</span><div class="score">96.0</div><div class="meta">$62.9B &rarr; $279.7B &middot; +34.8% CAGR</div></div>
+      <div class="card c2"><div class="rank">#2</div><div class="name">Healthcare</div><span class="badge inc">INCUMBENT &middot; HOLDS</span><div class="score">59.6</div><div class="meta">$21.1B &rarr; $78.2B &middot; +30.0% CAGR</div></div>
+      <div class="card c3"><div class="rank">#3</div><div class="name">Climate & Sustainability Tech</div><span class="badge cha">&uarr; CHALLENGER &middot; BREAKS IN</span><div class="score">54.9</div><div class="meta">$4.6B &rarr; $17.7B &middot; +30.8% CAGR</div></div>
+      <div class="card c4"><div class="rank">#4</div><div class="name">Legal & Compliance Tech</div><span class="badge cha">&uarr; CHALLENGER &middot; BREAKS IN</span><div class="score">52.5</div><div class="meta">$3.2B &rarr; $12.1B &middot; +30.4% CAGR</div></div>
+      <div class="card c5"><div class="rank">#5</div><div class="name">Education & EdTech</div><span class="badge cha">&uarr; CHALLENGER &middot; BREAKS IN</span><div class="score">51.9</div><div class="meta">$4.9B &rarr; $18.3B &middot; +30.2% CAGR</div></div>
+    </div>
+    <div class="verdicts">
+      <div class="verdict v-hold"><b>Holding their spot</b>AI Infrastructure, Healthcare</div>
+      <div class="verdict v-in"><b>Challengers breaking in</b>Climate Tech, Legal Tech, Education & EdTech</div>
+      <div class="verdict v-out"><b>Incumbents dropping out</b>Defense & Cybersecurity (#8), Finance (#12), Energy & Industrials (#13)</div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Key charts</h2>
+    <p class="note">All charts generated by the pipeline &mdash; history solid, ensemble forecasts dashed with 90% bootstrap bands.</p>
+    <div class="chart-wide">
+      <figure>
+        <img src="outputs/charts/01_market_size_forecast.png" alt="Market size history and 2026-2030 forecast for 13 candidate industries">
+        <figcaption>DS/ML market size by candidate industry, 2015&ndash;2030. Predicted top-5 emphasised with 90% confidence bands.</figcaption>
+      </figure>
+    </div>
+    <div class="grid2">
+      <figure>
+        <img src="outputs/charts/05_composite_ranking.png" alt="Composite prospect ranking of 13 industries">
+        <figcaption>Full composite ranking &mdash; green zone marks the predicted next top-5; &uarr; = challenger.</figcaption>
+      </figure>
+      <figure>
+        <img src="outputs/charts/07_growth_scale_map.png" alt="Growth versus scale quadrant map">
+        <figcaption>The growth&ndash;scale map: momentum vs 2030 market size. Bubble = composite score; triangles = challengers.</figcaption>
+      </figure>
+      <figure>
+        <img src="outputs/charts/06_industry_profiles_radar.png" alt="Radar profiles of predicted top five">
+        <figcaption>Profiles of the predicted next top 5 across normalised components.</figcaption>
+      </figure>
+      <figure>
+        <img src="outputs/charts/04_adoption_curves.png" alt="ML adoption logistic curves">
+        <figcaption>ML adoption: logistic S-curve fits and 2030 projections.</figcaption>
+      </figure>
+      <figure>
+        <img src="outputs/charts/02_investment_forecast.png" alt="Investment forecast by industry">
+        <figcaption>DS/ML investment & funding, forecast to 2030.</figcaption>
+      </figure>
+      <figure>
+        <img src="outputs/charts/03_job_postings_forecast.png" alt="Job postings forecast by industry">
+        <figcaption>DS/ML job postings, forecast to 2030.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section>
+    <h2>Method in one paragraph</h2>
+    <div class="panel">
+      <p>A <b>backtest-weighted ensemble</b> of <b>log-linear OLS regression</b> (compound-growth model) and <b>damped Holt exponential smoothing</b> (ETS(A,Ad,N)-style) forecasts each candidate to 2030, with <b>90% residual-bootstrap prediction intervals</b>; bounded adoption rates use <b>logistic (Pearl&ndash;Reed) S-curves</b>. Candidates are ranked with a <b>min-max composite indicator</b> (OECD/JRC methodology). Weights are learned on a 3-year holdout, and every component is published so the ranking can be re-weighted and re-run: <code>pip install -r requirements.txt && python main.py</code>.</p>
+      <div class="links">
+        <a href="outputs/reports/summary_report.md">&#128196; Full written report</a>
+        <a href="SOURCES.md">&#128218; Data sources & algorithms</a>
+        <a href="data/industry_panel.csv">&#128202; Panel dataset (CSV)</a>
+        <a href="outputs/forecasts.csv">&#128200; All forecasts + CIs</a>
+        <a href="outputs/scores.csv">&#127942; Scores & components</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    Dataset is benchmark-calibrated to published estimates (Grand View Research, Statista/Precedence, McKinsey State of AI, US BLS) &mdash; every 2025 value sits inside published ranges, and the pipeline runs unchanged on real data via <code>--from-csv</code>.
+    Reproducible end-to-end: seeded ensemble, deterministic pipeline. Numbers shown reflect seed 42, horizon 2026&ndash;2030.
+  </footer>
+
+</div>
+</body>
+</html>
