@@ -1,0 +1,144 @@
+industry,tier,year,market_size_usd_b,investment_usd_b,job_postings_k,adoption_rate_pct,ai_patents_k
+Healthcare,Incumbent,2015,1.217,0.629,6.229,2.77,0.698
+Healthcare,Incumbent,2016,1.505,0.847,7.205,3.41,0.95
+Healthcare,Incumbent,2017,2.208,1.311,8.96,6.66,1.312
+Healthcare,Incumbent,2018,2.716,1.597,10.385,10.17,1.595
+Healthcare,Incumbent,2019,3.724,2.087,14.13,14.94,1.957
+Healthcare,Incumbent,2020,5.21,3.187,17.506,23.2,2.618
+Healthcare,Incumbent,2021,7.314,4.293,19.284,31.97,3.342
+Healthcare,Incumbent,2022,9.294,5.635,23.143,42.61,4.221
+Healthcare,Incumbent,2023,12.148,7.776,28.483,53.5,5.124
+Healthcare,Incumbent,2024,15.78,10.456,36.328,62.1,6.434
+Healthcare,Incumbent,2025,21.055,13.958,40.748,67.33,7.807
+Finance,Incumbent,2015,2.915,1.29,15.087,6.92,1.177
+Finance,Incumbent,2016,3.435,1.53,16.09,13.35,1.364
+Finance,Incumbent,2017,4.742,2.132,17.779,21.47,1.511
+Finance,Incumbent,2018,5.336,2.311,19.81,31.74,1.825
+Finance,Incumbent,2019,7.199,3.286,23.834,43.96,2.087
+Finance,Incumbent,2020,8.622,3.919,25.941,54.85,2.314
+Finance,Incumbent,2021,10.88,5.053,30.749,65.1,3.064
+Finance,Incumbent,2022,13.545,6.497,34.298,71.45,3.114
+Finance,Incumbent,2023,15.212,6.847,37.994,76.21,3.881
+Finance,Incumbent,2024,19.712,10.488,44.723,79.12,4.57
+Finance,Incumbent,2025,24.534,11.52,51.029,80.73,5.102
+Defense & Cybersecurity,Incumbent,2015,2.039,1.241,6.795,4.17,0.905
+Defense & Cybersecurity,Incumbent,2016,2.412,1.482,8.339,10.09,1.08
+Defense & Cybersecurity,Incumbent,2017,2.913,1.802,10.022,15.21,1.42
+Defense & Cybersecurity,Incumbent,2018,3.828,2.584,11.115,21.16,1.532
+Defense & Cybersecurity,Incumbent,2019,4.572,2.628,14.49,31.16,1.799
+Defense & Cybersecurity,Incumbent,2020,5.654,3.633,17.942,43.8,2.983
+Defense & Cybersecurity,Incumbent,2021,7.23,4.339,17.868,52.96,2.803
+Defense & Cybersecurity,Incumbent,2022,8.602,5.334,23.489,62.48,3.66
+Defense & Cybersecurity,Incumbent,2023,10.746,6.561,25.889,67.87,4.4
+Defense & Cybersecurity,Incumbent,2024,14.474,9.572,35.185,72.38,4.96
+Defense & Cybersecurity,Incumbent,2025,15.807,10.03,44.339,75.01,6.972
+Energy & Industrials,Incumbent,2015,1.344,0.597,5.607,1.99,0.698
+Energy & Industrials,Incumbent,2016,1.665,0.722,6.452,2.43,0.768
+Energy & Industrials,Incumbent,2017,2.117,0.987,7.984,5.37,1.028
+Energy & Industrials,Incumbent,2018,2.729,1.179,9.311,9.47,1.246
+Energy & Industrials,Incumbent,2019,3.378,1.463,10.728,12.04,1.629
+Energy & Industrials,Incumbent,2020,3.881,1.653,12.486,20.53,1.612
+Energy & Industrials,Incumbent,2021,4.408,1.983,15.619,27.18,2.066
+Energy & Industrials,Incumbent,2022,5.884,2.785,19.797,36.52,2.173
+Energy & Industrials,Incumbent,2023,7.084,2.944,22.251,44.11,2.94
+Energy & Industrials,Incumbent,2024,9.063,3.676,28.422,52.25,3.53
+Energy & Industrials,Incumbent,2025,11.145,5.082,36.41,58.74,4.128
+AI Infrastructure,Incumbent,2015,2.97,2.561,5.044,7.52,1.51
+AI Infrastructure,Incumbent,2016,4.122,4.157,6.81,14.12,1.911
+AI Infrastructure,Incumbent,2017,5.195,4.434,7.81,25.61,2.409
+AI Infrastructure,Incumbent,2018,7.327,5.811,9.456,36.9,3.176
+AI Infrastructure,Incumbent,2019,9.866,9.026,10.827,51.08,4.973
+AI Infrastructure,Incumbent,2020,14.226,12.5,17.354,67.67,5.131
+AI Infrastructure,Incumbent,2021,18.671,18.242,19.817,74.4,7.117
+AI Infrastructure,Incumbent,2022,26.735,26.794,22.118,81.5,8.549
+AI Infrastructure,Incumbent,2023,34.736,34.045,28.274,84.97,12.647
+AI Infrastructure,Incumbent,2024,49.976,51.243,35.27,87.59,15.907
+AI Infrastructure,Incumbent,2025,62.865,66.386,42.764,90.38,23.086
+Retail & E-commerce,Challenger,2015,1.119,0.535,5.202,5.4,0.611
+Retail & E-commerce,Challenger,2016,1.416,0.644,6.913,7.42,0.677
+Retail & E-commerce,Challenger,2017,1.71,0.886,7.941,10.72,0.887
+Retail & E-commerce,Challenger,2018,2.176,1.131,10.23,14.43,1.072
+Retail & E-commerce,Challenger,2019,2.795,1.48,11.195,22.34,1.36
+Retail & E-commerce,Challenger,2020,4.229,2.027,16.005,32.14,1.615
+Retail & E-commerce,Challenger,2021,4.198,2.184,17.526,42.07,2.233
+Retail & E-commerce,Challenger,2022,5.848,3.219,21.503,50.61,2.558
+Retail & E-commerce,Challenger,2023,6.895,3.748,22.839,58.31,2.711
+Retail & E-commerce,Challenger,2024,9.12,4.931,30.09,63.65,4.081
+Retail & E-commerce,Challenger,2025,11.465,5.762,33.941,66.01,4.227
+Transportation & Logistics,Challenger,2015,0.856,0.445,3.863,2.43,0.501
+Transportation & Logistics,Challenger,2016,0.947,0.462,4.916,6.02,0.647
+Transportation & Logistics,Challenger,2017,1.128,0.592,5.878,8.22,0.861
+Transportation & Logistics,Challenger,2018,1.424,0.719,7.299,10.65,1.057
+Transportation & Logistics,Challenger,2019,1.986,1.109,8.333,18.08,1.274
+Transportation & Logistics,Challenger,2020,2.393,1.307,10.201,23.73,1.451
+Transportation & Logistics,Challenger,2021,3.031,1.696,13.197,31.64,1.802
+Transportation & Logistics,Challenger,2022,4.078,2.164,14.578,40.99,2.391
+Transportation & Logistics,Challenger,2023,4.771,2.91,19.184,49.21,2.905
+Transportation & Logistics,Challenger,2024,6.619,3.738,20.12,56.24,3.356
+Transportation & Logistics,Challenger,2025,7.487,4.7,24.838,58.86,3.842
+Agriculture & Food Tech,Challenger,2015,0.289,0.163,1.54,2.27,0.362
+Agriculture & Food Tech,Challenger,2016,0.346,0.195,1.802,3.53,0.525
+Agriculture & Food Tech,Challenger,2017,0.495,0.296,2.296,5.24,0.595
+Agriculture & Food Tech,Challenger,2018,0.624,0.369,2.908,6.91,0.81
+Agriculture & Food Tech,Challenger,2019,0.796,0.47,3.579,9.04,0.892
+Agriculture & Food Tech,Challenger,2020,0.964,0.509,4.082,15.79,1.197
+Agriculture & Food Tech,Challenger,2021,1.331,0.88,5.551,20.86,1.678
+Agriculture & Food Tech,Challenger,2022,1.696,1.019,6.202,26.34,1.792
+Agriculture & Food Tech,Challenger,2023,2.127,1.438,8.564,33.37,2.451
+Agriculture & Food Tech,Challenger,2024,2.64,1.786,9.603,39.62,3.18
+Agriculture & Food Tech,Challenger,2025,3.447,2.238,11.27,46.28,3.839
+Telecom & Media,Challenger,2015,0.397,0.182,3.055,6.82,0.488
+Telecom & Media,Challenger,2016,0.475,0.229,3.482,9.95,0.627
+Telecom & Media,Challenger,2017,0.641,0.298,4.605,15.53,0.748
+Telecom & Media,Challenger,2018,0.825,0.402,4.725,20.71,0.906
+Telecom & Media,Challenger,2019,1.055,0.461,5.372,27.03,1.024
+Telecom & Media,Challenger,2020,1.359,0.616,7.939,38.88,1.263
+Telecom & Media,Challenger,2021,1.705,0.771,7.984,47.46,1.722
+Telecom & Media,Challenger,2022,2.099,1.043,9.026,55.57,2.412
+Telecom & Media,Challenger,2023,2.734,1.396,11.328,62.6,2.444
+Telecom & Media,Challenger,2024,3.412,1.532,13.596,66.26,3.136
+Telecom & Media,Challenger,2025,4.585,2.217,15.478,70.6,3.574
+Climate & Sustainability Tech,Challenger,2015,0.261,0.164,1.18,1.0,0.27
+Climate & Sustainability Tech,Challenger,2016,0.356,0.27,1.482,1.0,0.322
+Climate & Sustainability Tech,Challenger,2017,0.438,0.373,2.009,3.24,0.54
+Climate & Sustainability Tech,Challenger,2018,0.561,0.415,2.529,6.07,0.729
+Climate & Sustainability Tech,Challenger,2019,0.819,0.658,3.112,10.7,1.021
+Climate & Sustainability Tech,Challenger,2020,1.034,0.776,4.408,15.47,1.326
+Climate & Sustainability Tech,Challenger,2021,1.532,1.357,5.737,23.38,1.771
+Climate & Sustainability Tech,Challenger,2022,1.908,1.501,6.606,32.49,1.877
+Climate & Sustainability Tech,Challenger,2023,2.674,2.208,9.158,39.45,2.617
+Climate & Sustainability Tech,Challenger,2024,3.228,2.685,11.206,49.43,3.586
+Climate & Sustainability Tech,Challenger,2025,4.633,4.203,13.47,56.56,5.047
+Insurance,Challenger,2015,0.712,0.353,3.552,7.68,0.497
+Insurance,Challenger,2016,0.856,0.397,3.856,8.93,0.564
+Insurance,Challenger,2017,1.073,0.536,4.722,15.13,0.767
+Insurance,Challenger,2018,1.38,0.676,5.288,24.21,0.875
+Insurance,Challenger,2019,1.551,0.771,6.421,32.95,1.051
+Insurance,Challenger,2020,1.903,1.04,7.746,44.13,1.276
+Insurance,Challenger,2021,2.283,1.085,8.403,53.38,1.57
+Insurance,Challenger,2022,3.452,1.655,9.486,62.45,2.005
+Insurance,Challenger,2023,3.703,1.954,12.568,66.75,1.966
+Insurance,Challenger,2024,4.76,2.422,13.862,72.14,2.278
+Insurance,Challenger,2025,6.157,3.154,16.456,73.89,2.961
+Education & EdTech,Challenger,2015,0.359,0.225,1.841,1.0,0.415
+Education & EdTech,Challenger,2016,0.434,0.27,2.079,4.11,0.484
+Education & EdTech,Challenger,2017,0.558,0.364,2.801,5.5,0.725
+Education & EdTech,Challenger,2018,0.754,0.481,3.478,8.87,0.867
+Education & EdTech,Challenger,2019,0.976,0.618,4.556,13.41,0.907
+Education & EdTech,Challenger,2020,1.607,1.24,5.947,19.26,1.345
+Education & EdTech,Challenger,2021,1.668,1.114,6.189,29.36,1.825
+Education & EdTech,Challenger,2022,2.053,1.476,8.991,37.94,2.199
+Education & EdTech,Challenger,2023,3.461,2.525,11.257,46.62,2.805
+Education & EdTech,Challenger,2024,4.033,2.862,13.561,53.14,3.844
+Education & EdTech,Challenger,2025,4.895,3.398,15.608,60.88,4.617
+Legal & Compliance Tech,Challenger,2015,0.185,0.12,0.956,1.0,0.249
+Legal & Compliance Tech,Challenger,2016,0.244,0.148,1.291,1.0,0.272
+Legal & Compliance Tech,Challenger,2017,0.361,0.251,1.532,1.0,0.448
+Legal & Compliance Tech,Challenger,2018,0.467,0.377,2.043,3.82,0.543
+Legal & Compliance Tech,Challenger,2019,0.63,0.469,2.683,5.71,0.693
+Legal & Compliance Tech,Challenger,2020,0.784,0.605,3.423,10.0,0.901
+Legal & Compliance Tech,Challenger,2021,1.073,0.797,4.197,14.93,1.139
+Legal & Compliance Tech,Challenger,2022,1.348,0.906,4.805,24.5,1.547
+Legal & Compliance Tech,Challenger,2023,2.481,1.936,7.723,34.93,2.195
+Legal & Compliance Tech,Challenger,2024,2.329,1.79,8.231,44.21,2.774
+Legal & Compliance Tech,Challenger,2025,3.21,2.786,9.577,52.08,3.396

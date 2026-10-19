@@ -1,0 +1,196 @@
+industry,metric,year,point,ci90_lo,ci90_hi
+Healthcare,market_size_usd_b,2026,27.884,25.227,30.037
+Healthcare,market_size_usd_b,2027,36.09,30.293,41.68
+Healthcare,market_size_usd_b,2028,46.637,35.9,55.704
+Healthcare,market_size_usd_b,2029,60.313,41.612,74.448
+Healthcare,market_size_usd_b,2030,78.171,47.858,99.498
+Healthcare,investment_usd_b,2026,19.209,17.077,21.406
+Healthcare,investment_usd_b,2027,25.803,20.748,29.194
+Healthcare,investment_usd_b,2028,34.657,24.596,39.817
+Healthcare,investment_usd_b,2029,46.595,28.852,54.305
+Healthcare,investment_usd_b,2030,62.738,33.527,74.064
+Healthcare,job_postings_k,2026,50.532,46.43,55.778
+Healthcare,job_postings_k,2027,60.503,52.232,67.662
+Healthcare,job_postings_k,2028,72.384,58.603,82.078
+Healthcare,job_postings_k,2029,86.583,64.632,99.565
+Healthcare,job_postings_k,2030,103.592,71.493,120.777
+Finance,market_size_usd_b,2026,29.618,28.355,32.203
+Finance,market_size_usd_b,2027,35.432,32.621,39.532
+Finance,market_size_usd_b,2028,42.139,37.367,48.888
+Finance,market_size_usd_b,2029,49.952,42.247,60.484
+Finance,market_size_usd_b,2030,59.131,47.389,75.446
+Finance,investment_usd_b,2026,14.308,13.338,16.417
+Finance,investment_usd_b,2027,17.258,15.204,20.54
+Finance,investment_usd_b,2028,20.734,17.139,25.698
+Finance,investment_usd_b,2029,24.867,19.372,31.362
+Finance,investment_usd_b,2030,29.823,21.531,39.238
+Finance,job_postings_k,2026,56.727,54.095,60.046
+Finance,job_postings_k,2027,63.802,61.333,68.08
+Finance,job_postings_k,2028,71.564,69.539,77.188
+Finance,job_postings_k,2029,80.103,76.804,87.516
+Finance,job_postings_k,2030,89.525,84.61,99.225
+Defense & Cybersecurity,market_size_usd_b,2026,20.071,18.435,22.15
+Defense & Cybersecurity,market_size_usd_b,2027,24.414,20.938,27.401
+Defense & Cybersecurity,market_size_usd_b,2028,29.677,23.625,33.896
+Defense & Cybersecurity,market_size_usd_b,2029,36.078,26.33,41.932
+Defense & Cybersecurity,market_size_usd_b,2030,43.885,29.269,51.872
+Defense & Cybersecurity,investment_usd_b,2026,12.762,11.868,14.738
+Defense & Cybersecurity,investment_usd_b,2027,15.547,13.447,18.288
+Defense & Cybersecurity,investment_usd_b,2028,18.918,15.076,22.693
+Defense & Cybersecurity,investment_usd_b,2029,23.014,16.992,28.158
+Defense & Cybersecurity,investment_usd_b,2030,28.01,18.894,34.94
+Defense & Cybersecurity,job_postings_k,2026,49.934,43.729,56.104
+Defense & Cybersecurity,job_postings_k,2027,59.067,52.301,69.343
+Defense & Cybersecurity,job_postings_k,2028,69.465,62.554,82.915
+Defense & Cybersecurity,job_postings_k,2029,81.377,74.816,97.573
+Defense & Cybersecurity,job_postings_k,2030,95.099,85.733,114.041
+Energy & Industrials,market_size_usd_b,2026,13.438,12.415,14.396
+Energy & Industrials,market_size_usd_b,2027,16.393,15.272,17.708
+Energy & Industrials,market_size_usd_b,2028,19.972,17.77,21.783
+Energy & Industrials,market_size_usd_b,2029,24.319,20.637,26.796
+Energy & Industrials,market_size_usd_b,2030,29.61,23.359,32.961
+Energy & Industrials,investment_usd_b,2026,5.859,5.441,6.426
+Energy & Industrials,investment_usd_b,2027,7.038,6.677,7.914
+Energy & Industrials,investment_usd_b,2028,8.389,7.708,9.673
+Energy & Industrials,investment_usd_b,2029,9.952,8.757,11.674
+Energy & Industrials,investment_usd_b,2030,11.775,9.837,14.326
+Energy & Industrials,job_postings_k,2026,41.414,37.669,45.746
+Energy & Industrials,job_postings_k,2027,48.957,46.399,54.926
+Energy & Industrials,job_postings_k,2028,57.468,54.431,65.201
+Energy & Industrials,job_postings_k,2029,67.143,63.807,76.947
+Energy & Industrials,job_postings_k,2030,78.219,71.935,91.381
+AI Infrastructure,market_size_usd_b,2026,87.011,76.461,93.02
+AI Infrastructure,market_size_usd_b,2027,116.337,91.016,126.906
+AI Infrastructure,market_size_usd_b,2028,155.593,106.63,173.137
+AI Infrastructure,market_size_usd_b,2029,208.397,123.525,236.21
+AI Infrastructure,market_size_usd_b,2030,279.684,141.086,322.259
+AI Infrastructure,investment_usd_b,2026,91.534,80.83,111.669
+AI Infrastructure,investment_usd_b,2027,124.702,98.11,155.184
+AI Infrastructure,investment_usd_b,2028,169.953,115.691,215.657
+AI Infrastructure,investment_usd_b,2029,231.995,134.972,299.694
+AI Infrastructure,investment_usd_b,2030,317.372,155.263,416.479
+AI Infrastructure,job_postings_k,2026,53.439,48.087,62.29
+AI Infrastructure,job_postings_k,2027,65.531,57.48,77.077
+AI Infrastructure,job_postings_k,2028,80.29,65.924,95.373
+AI Infrastructure,job_postings_k,2029,98.346,75.309,118.013
+AI Infrastructure,job_postings_k,2030,120.485,85.354,146.027
+Retail & E-commerce,market_size_usd_b,2026,14.254,13.385,17.136
+Retail & E-commerce,market_size_usd_b,2027,17.684,15.492,21.636
+Retail & E-commerce,market_size_usd_b,2028,21.892,18.099,27.318
+Retail & E-commerce,market_size_usd_b,2029,27.083,20.803,34.493
+Retail & E-commerce,market_size_usd_b,2030,33.515,23.74,43.551
+Retail & E-commerce,investment_usd_b,2026,7.314,6.679,8.76
+Retail & E-commerce,investment_usd_b,2027,8.887,7.526,10.9
+Retail & E-commerce,investment_usd_b,2028,10.77,8.518,13.912
+Retail & E-commerce,investment_usd_b,2029,13.05,9.56,17.755
+Retail & E-commerce,investment_usd_b,2030,15.837,10.619,22.69
+Retail & E-commerce,job_postings_k,2026,39.882,36.762,45.092
+Retail & E-commerce,job_postings_k,2027,46.034,41.287,54.263
+Retail & E-commerce,job_postings_k,2028,52.845,45.541,65.299
+Retail & E-commerce,job_postings_k,2029,60.448,49.994,78.579
+Retail & E-commerce,job_postings_k,2030,69.004,55.161,94.56
+Transportation & Logistics,market_size_usd_b,2026,9.472,8.725,10.935
+Transportation & Logistics,market_size_usd_b,2027,11.623,9.923,13.784
+Transportation & Logistics,market_size_usd_b,2028,14.242,11.338,17.376
+Transportation & Logistics,market_size_usd_b,2029,17.452,12.737,21.904
+Transportation & Logistics,market_size_usd_b,2030,21.406,14.251,27.613
+Transportation & Logistics,investment_usd_b,2026,5.882,5.334,6.999
+Transportation & Logistics,investment_usd_b,2027,7.375,6.587,8.992
+Transportation & Logistics,investment_usd_b,2028,9.23,7.657,11.551
+Transportation & Logistics,investment_usd_b,2029,11.548,8.853,14.84
+Transportation & Logistics,investment_usd_b,2030,14.462,10.111,19.064
+Transportation & Logistics,job_postings_k,2026,29.612,27.306,33.263
+Transportation & Logistics,job_postings_k,2027,34.724,30.06,40.184
+Transportation & Logistics,job_postings_k,2028,40.623,33.479,48.343
+Transportation & Logistics,job_postings_k,2029,47.467,36.947,58.159
+Transportation & Logistics,job_postings_k,2030,55.448,41.079,69.967
+Agriculture & Food Tech,market_size_usd_b,2026,4.364,4.089,4.662
+Agriculture & Food Tech,market_size_usd_b,2027,5.464,4.852,5.981
+Agriculture & Food Tech,market_size_usd_b,2028,6.825,5.627,7.674
+Agriculture & Food Tech,market_size_usd_b,2029,8.521,6.461,9.845
+Agriculture & Food Tech,market_size_usd_b,2030,10.647,7.372,12.631
+Agriculture & Food Tech,investment_usd_b,2026,2.961,2.524,3.342
+Agriculture & Food Tech,investment_usd_b,2027,3.807,3.143,4.364
+Agriculture & Food Tech,investment_usd_b,2028,4.893,3.668,5.699
+Agriculture & Food Tech,investment_usd_b,2029,6.293,4.222,7.443
+Agriculture & Food Tech,investment_usd_b,2030,8.103,4.81,9.72
+Agriculture & Food Tech,job_postings_k,2026,14.198,12.764,15.839
+Agriculture & Food Tech,job_postings_k,2027,17.122,14.539,19.443
+Agriculture & Food Tech,job_postings_k,2028,20.63,16.307,23.866
+Agriculture & Food Tech,job_postings_k,2029,24.857,18.247,29.295
+Agriculture & Food Tech,job_postings_k,2030,29.963,20.487,35.96
+Telecom & Media,market_size_usd_b,2026,5.691,5.439,5.869
+Telecom & Media,market_size_usd_b,2027,7.204,6.615,7.489
+Telecom & Media,market_size_usd_b,2028,9.109,7.827,9.557
+Telecom & Media,market_size_usd_b,2029,11.515,9.202,12.195
+Telecom & Media,market_size_usd_b,2030,14.559,10.68,15.562
+Telecom & Media,investment_usd_b,2026,2.662,2.51,2.928
+Telecom & Media,investment_usd_b,2027,3.313,2.942,3.748
+Telecom & Media,investment_usd_b,2028,4.106,3.4,4.797
+Telecom & Media,investment_usd_b,2029,5.083,3.923,6.14
+Telecom & Media,investment_usd_b,2030,6.294,4.482,7.859
+Telecom & Media,job_postings_k,2026,18.243,16.838,21.137
+Telecom & Media,job_postings_k,2027,21.343,19.824,24.885
+Telecom & Media,job_postings_k,2028,24.942,23.043,29.296
+Telecom & Media,job_postings_k,2029,29.13,25.874,34.49
+Telecom & Media,job_postings_k,2030,34.01,29.268,40.604
+Climate & Sustainability Tech,market_size_usd_b,2026,5.992,5.617,6.473
+Climate & Sustainability Tech,market_size_usd_b,2027,7.861,6.702,8.635
+Climate & Sustainability Tech,market_size_usd_b,2028,10.298,7.984,11.519
+Climate & Sustainability Tech,market_size_usd_b,2029,13.495,9.199,15.367
+Climate & Sustainability Tech,market_size_usd_b,2030,17.705,10.616,20.5
+Climate & Sustainability Tech,investment_usd_b,2026,5.397,4.932,6.375
+Climate & Sustainability Tech,investment_usd_b,2027,7.226,6.107,8.687
+Climate & Sustainability Tech,investment_usd_b,2028,9.661,7.3,11.837
+Climate & Sustainability Tech,investment_usd_b,2029,12.92,8.589,16.129
+Climate & Sustainability Tech,investment_usd_b,2030,17.305,9.957,21.979
+Climate & Sustainability Tech,job_postings_k,2026,17.883,15.722,19.888
+Climate & Sustainability Tech,job_postings_k,2027,22.47,17.976,25.502
+Climate & Sustainability Tech,job_postings_k,2028,28.224,20.576,32.7
+Climate & Sustainability Tech,job_postings_k,2029,35.476,23.293,41.931
+Climate & Sustainability Tech,job_postings_k,2030,44.648,26.12,53.767
+Insurance,market_size_usd_b,2026,7.258,6.67,8.139
+Insurance,market_size_usd_b,2027,8.816,8.265,10.085
+Insurance,market_size_usd_b,2028,10.666,9.536,12.496
+Insurance,market_size_usd_b,2029,12.878,10.822,15.485
+Insurance,market_size_usd_b,2030,15.539,12.233,19.188
+Insurance,investment_usd_b,2026,3.746,3.259,4.006
+Insurance,investment_usd_b,2027,4.588,4.061,4.971
+Insurance,investment_usd_b,2028,5.602,4.949,6.194
+Insurance,investment_usd_b,2029,6.831,5.672,7.718
+Insurance,investment_usd_b,2030,8.328,6.426,9.617
+Insurance,job_postings_k,2026,18.833,17.704,20.068
+Insurance,job_postings_k,2027,21.767,20.691,23.455
+Insurance,job_postings_k,2028,25.098,23.362,27.415
+Insurance,job_postings_k,2029,28.893,26.123,32.043
+Insurance,job_postings_k,2030,33.23,29.2,37.452
+Education & EdTech,market_size_usd_b,2026,6.65,5.782,8.252
+Education & EdTech,market_size_usd_b,2027,8.563,6.683,10.838
+Education & EdTech,market_size_usd_b,2028,11.026,7.675,14.236
+Education & EdTech,market_size_usd_b,2029,14.212,8.674,18.698
+Education & EdTech,market_size_usd_b,2030,18.347,9.794,24.56
+Education & EdTech,investment_usd_b,2026,4.839,3.984,6.973
+Education & EdTech,investment_usd_b,2027,6.288,4.61,9.298
+Education & EdTech,investment_usd_b,2028,8.177,5.25,12.399
+Education & EdTech,investment_usd_b,2029,10.652,5.935,16.535
+Education & EdTech,investment_usd_b,2030,13.91,6.728,22.049
+Education & EdTech,job_postings_k,2026,20.2,17.673,22.713
+Education & EdTech,job_postings_k,2027,24.719,20.158,28.397
+Education & EdTech,job_postings_k,2028,30.236,22.772,35.503
+Education & EdTech,job_postings_k,2029,37.001,25.528,44.387
+Education & EdTech,job_postings_k,2030,45.328,28.55,55.495
+Legal & Compliance Tech,market_size_usd_b,2026,4.32,3.705,5.894
+Legal & Compliance Tech,market_size_usd_b,2027,5.577,4.0,7.865
+Legal & Compliance Tech,market_size_usd_b,2028,7.201,4.617,10.494
+Legal & Compliance Tech,market_size_usd_b,2029,9.315,5.264,14.003
+Legal & Compliance Tech,market_size_usd_b,2030,12.084,5.913,18.685
+Legal & Compliance Tech,investment_usd_b,2026,3.647,3.063,4.908
+Legal & Compliance Tech,investment_usd_b,2027,4.842,3.68,6.692
+Legal & Compliance Tech,investment_usd_b,2028,6.425,4.338,9.125
+Legal & Compliance Tech,investment_usd_b,2029,8.537,5.045,12.442
+Legal & Compliance Tech,investment_usd_b,2030,11.372,5.76,16.965
+Legal & Compliance Tech,job_postings_k,2026,12.825,10.914,15.67
+Legal & Compliance Tech,job_postings_k,2027,15.859,12.345,19.837
+Legal & Compliance Tech,job_postings_k,2028,19.608,13.848,25.114
+Legal & Compliance Tech,job_postings_k,2029,24.262,15.365,31.793
+Legal & Compliance Tech,job_postings_k,2030,30.062,16.987,40.249
