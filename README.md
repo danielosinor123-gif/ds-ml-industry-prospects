@@ -179,3 +179,5 @@ highest-value extension of this project.
 - **Live showcase (Hugging Face Space):** https://danielaxv3-ds-ml-industry-prospects.static.hf.space
 - **GitHub:** https://github.com/danielosinor123-gif/ds-ml-industry-prospects
 - **Hugging Face repo:** https://huggingface.co/spaces/danielaxv3/ds-ml-industry-prospects
+
+**Sister project — [ML Niche Challengers](https://github.com/danielosinor123-gif/ds-ml-niche-challengers):** zooms inside Healthcare & Agriculture and uses a supervised classifier (LOOCV AUC 0.90) to predict which ML niches break out. [Live showcase](https://danielaxv3-ds-ml-niche-challengers.static.hf.space)
