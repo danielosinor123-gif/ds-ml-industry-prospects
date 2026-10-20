@@ -3,170 +3,579 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Predicting the next top industries for Data Science & ML: a 2026-2030 composite ranking of 13 candidate industries.">
-<title>The NEXT Top Industries for Data Science & ML</title>
+<meta name="description" content="Predicting the next top industries for Data Science & ML: a 2026-2030 composite ranking of 13 candidate industries with ensemble forecasting and bootstrap uncertainty.">
+<title>The NEXT Top Industries for DS/ML — 2026–2030 Ranking</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%93%88%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --teal: #00A499; --indigo: #6C3483; --green: #27AE60;
-    --amber: #F1C40F; --red: #C0392B; --slate: #34495E;
-    --ink: #1d2733; --muted: #5c6b7a; --bg: #f6f8fa; --card: #ffffff;
-    --line: #e3e9ef;
+    --bg: #f6f8fb; --surface: #ffffff; --surface-2: #eef2f7;
+    --text: #182231; --muted: #5b6b7c; --line: #e4eaf1;
+    --indigo: #6C3483; --teal: #00A499; --blue: #1F6FB2;
+    --green: #1E8449; --red: #C0392B; --amber: #F1C40F;
+    --shadow: 0 1px 3px rgba(16,32,48,.06), 0 8px 24px rgba(16,32,48,.05);
+    --radius: 14px;
+    --font: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0c111e; --surface: #141c2f; --surface-2: #1b2438;
+      --text: #e8eef7; --muted: #97a6bb; --line: #243149;
+      --shadow: 0 1px 3px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.35);
+      --green: #2ecc71; --blue: #4d9fdd;
+    }
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: "Segoe UI", system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--ink); line-height: 1.55; }
-  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--font); background: var(--bg); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+  a { color: inherit; }
+  .num { font-family: var(--mono); }
 
-  /* hero */
-  .hero { background: linear-gradient(135deg, #17203a 0%, #2c1a4d 60%, #123f38 100%); color: #fff; padding: 54px 0 46px; }
-  .hero .kicker { font-size: 12.5px; letter-spacing: 2.5px; text-transform: uppercase; color: #9fb3c8; font-weight: 600; }
-  .hero h1 { font-size: 34px; line-height: 1.15; margin: 10px 0 12px; font-weight: 800; }
-  .hero p.sub { color: #c5d3e0; font-size: 16px; max-width: 760px; }
-  .chips { margin-top: 20px; display: flex; flex-wrap: wrap; gap: 8px; }
-  .chip { background: rgba(255,255,255,.10); border: 1px solid rgba(255,255,255,.18); color: #dbe6f0; font-size: 12.5px; padding: 5px 12px; border-radius: 999px; }
+  /* ---------- nav ---------- */
+  .nav { position: sticky; top: 0; z-index: 50; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+         background: color-mix(in srgb, var(--bg) 80%, transparent); border-bottom: 1px solid transparent; transition: border-color .3s, box-shadow .3s; }
+  .nav.scrolled { border-color: var(--line); box-shadow: var(--shadow); }
+  .nav-inner { display: flex; align-items: center; gap: 18px; height: 60px; }
+  .brand { font-weight: 800; font-size: 15px; display: flex; align-items: center; gap: 9px; text-decoration: none; }
+  .brand .mark { width: 26px; height: 26px; border-radius: 8px; background: linear-gradient(135deg, var(--indigo), var(--teal)); display: grid; place-items: center; color: #fff; font-size: 13px; }
+  .nav-links { display: flex; gap: 4px; margin-left: auto; }
+  .nav-links a { text-decoration: none; color: var(--muted); font-size: 13.5px; font-weight: 600; padding: 7px 12px; border-radius: 8px; transition: color .2s, background .2s; }
+  .nav-links a:hover { color: var(--text); background: var(--surface-2); }
+  .nav-cta { text-decoration: none; font-size: 13px; font-weight: 700; color: #fff; background: var(--text); padding: 8px 14px; border-radius: 9px; transition: opacity .2s; }
+  .nav-cta:hover { opacity: .85; }
+  @media (max-width: 780px) { .nav-links { display: none; } }
 
-  section { padding: 38px 0 8px; }
-  h2 { font-size: 21px; font-weight: 800; margin-bottom: 4px; }
-  p.note { color: var(--muted); font-size: 14px; margin-bottom: 18px; }
+  /* ---------- hero ---------- */
+  .hero { background: linear-gradient(135deg, #12182e 0%, #2a1650 55%, #0e3f36 100%); background-size: 160% 160%;
+          animation: drift 14s ease-in-out infinite alternate; color: #fff; padding: 84px 0 64px; position: relative; overflow: hidden; }
+  @keyframes drift { from { background-position: 0% 0%; } to { background-position: 100% 100%; } }
+  .hero::after { content: ""; position: absolute; inset: 0; background: radial-gradient(700px 300px at 78% 18%, rgba(124,77,255,.18), transparent 60%); pointer-events: none; }
+  .hero .kicker { font-size: 12px; letter-spacing: 2.6px; text-transform: uppercase; color: #9fb3c8; font-weight: 700; }
+  .hero h1 { font-size: clamp(30px, 5vw, 46px); line-height: 1.12; margin: 14px 0 14px; font-weight: 800; letter-spacing: -0.5px; }
+  .hero h1 em { font-style: normal; background: linear-gradient(90deg, #9d7bd8, #45d4c6); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .hero p.sub { color: #c4d2e0; font-size: clamp(15px, 2vw, 17.5px); max-width: 720px; }
+  .chips { margin-top: 22px; display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip { background: rgba(255,255,255,.09); border: 1px solid rgba(255,255,255,.16); color: #dbe6f0; font-size: 12.5px; padding: 5px 12px; border-radius: 999px; }
+  .hero-ctas { margin-top: 28px; display: flex; flex-wrap: wrap; gap: 12px; }
+  .btn { text-decoration: none; font-size: 14px; font-weight: 700; padding: 11px 20px; border-radius: 10px; transition: transform .2s, opacity .2s; display: inline-block; }
+  .btn:hover { transform: translateY(-1px); }
+  .btn-primary { background: linear-gradient(90deg, #7d3ac1, #00a499); color: #fff; box-shadow: 0 6px 18px rgba(125,58,193,.35); }
+  .btn-ghost { background: rgba(255,255,255,.10); color: #eaf1f8; border: 1px solid rgba(255,255,255,.25); }
+  .hero-stats { margin-top: 40px; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+  .hstat { background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12); border-radius: 12px; padding: 14px 16px; }
+  .hstat b { display: block; font-size: 21px; font-weight: 800; font-family: var(--mono); }
+  .hstat span { font-size: 12.5px; color: #aebfd0; }
 
-  /* results cards */
-  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 14px; margin-bottom: 10px; }
-  .card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 16px 16px 14px; position: relative; box-shadow: 0 1px 3px rgba(16,32,48,.05); }
-  .card .rank { font-size: 12px; font-weight: 700; color: var(--muted); letter-spacing: 1px; }
-  .card .name { font-size: 15.5px; font-weight: 800; margin: 3px 0 8px; min-height: 42px; }
-  .badge { display: inline-block; font-size: 10.5px; font-weight: 700; letter-spacing: .4px; padding: 2.5px 9px; border-radius: 999px; margin-bottom: 10px; }
-  .badge.inc { background: #e8eef7; color: #1F6FB2; }
-  .badge.cha { background: #e4f6ec; color: #1e8449; }
-  .card .score { font-size: 26px; font-weight: 800; }
-  .card .meta { font-size: 12.5px; color: var(--muted); margin-top: 6px; }
-  .card.c1 { border-top: 3px solid var(--indigo); }
-  .card.c2 { border-top: 3px solid var(--teal); }
-  .card.c3 { border-top: 3px solid var(--green); }
-  .card.c4 { border-top: 3px solid var(--amber); }
-  .card.c5 { border-top: 3px solid #B58AD1; }
+  /* ---------- sections ---------- */
+  section.block { padding: 64px 0 26px; }
+  .sec-head { margin-bottom: 26px; }
+  .sec-head .idx { font-family: var(--mono); font-size: 12.5px; color: var(--teal); font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
+  .sec-head h2 { font-size: clamp(22px, 3vw, 28px); font-weight: 800; letter-spacing: -0.4px; margin-top: 4px; }
+  .sec-head p { color: var(--muted); font-size: 14.5px; max-width: 760px; margin-top: 6px; }
 
-  /* verdicts */
-  .verdicts { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; margin-top: 8px; }
-  .verdict { background: var(--card); border: 1px solid var(--line); border-left: 4px solid var(--line); border-radius: 10px; padding: 14px 16px; font-size: 14px; }
-  .verdict b { display: block; font-size: 12px; letter-spacing: 1.2px; text-transform: uppercase; margin-bottom: 5px; }
-  .v-hold { border-left-color: #1F6FB2; } .v-hold b { color: #1F6FB2; }
-  .v-in { border-left-color: var(--green); } .v-in b { color: #1e8449; }
-  .v-out { border-left-color: var(--red); } .v-out b { color: var(--red); }
+  /* ---------- results cards ---------- */
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; }
+  .card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px; position: relative;
+          box-shadow: var(--shadow); transition: transform .25s, box-shadow .25s; }
+  .card:hover { transform: translateY(-4px); box-shadow: 0 4px 8px rgba(16,32,48,.06), 0 18px 38px rgba(16,32,48,.10); }
+  .card .rank { font-family: var(--mono); font-size: 12px; color: var(--muted); font-weight: 700; }
+  .card .name { font-size: 15.5px; font-weight: 800; margin: 4px 0 9px; min-height: 42px; }
+  .badge { display: inline-block; font-size: 10.5px; font-weight: 700; letter-spacing: .4px; padding: 3px 10px; border-radius: 999px; margin-bottom: 12px; }
+  .badge.inc { background: color-mix(in srgb, var(--blue) 14%, transparent); color: var(--blue); }
+  .badge.cha { background: color-mix(in srgb, var(--green) 15%, transparent); color: var(--green); }
+  .card .score { font-size: 30px; font-weight: 800; font-family: var(--mono); letter-spacing: -1px; }
+  .bar { height: 6px; border-radius: 99px; background: var(--surface-2); margin: 8px 0 10px; overflow: hidden; }
+  .bar i { display: block; height: 100%; border-radius: 99px; }
+  .card .meta { font-size: 12.5px; color: var(--muted); font-family: var(--mono); }
+  .card.c1 { border-top: 3px solid #6C3483; } .card.c1 .bar i { background: #6C3483; }
+  .card.c2 { border-top: 3px solid #00A499; } .card.c2 .bar i { background: #00A499; }
+  .card.c3 { border-top: 3px solid #27AE60; } .card.c3 .bar i { background: #27AE60; }
+  .card.c4 { border-top: 3px solid #F1C40F; } .card.c4 .bar i { background: #F1C40F; }
+  .card.c5 { border-top: 3px solid #B58AD1; } .card.c5 .bar i { background: #B58AD1; }
 
-  /* charts */
-  .chart-wide, .grid2 { margin-top: 16px; }
-  figure { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 12px; margin-bottom: 14px; }
-  figure img { width: 100%; height: auto; border-radius: 6px; }
-  figcaption { font-size: 12.5px; color: var(--muted); padding: 8px 4px 2px; }
-  .grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)); gap: 14px; }
+  .verdicts { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; margin-top: 16px; }
+  .verdict { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px; display: flex; gap: 14px; align-items: flex-start; box-shadow: var(--shadow); }
+  .verdict svg { flex: none; width: 30px; height: 30px; }
+  .verdict b { display: block; font-size: 11.5px; letter-spacing: 1.3px; text-transform: uppercase; margin-bottom: 4px; }
+  .verdict p { font-size: 14.5px; font-weight: 600; }
+  .v-hold b { color: var(--blue); } .v-in b { color: var(--green); } .v-out b { color: var(--red); }
 
-  /* method + links */
-  .panel { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 18px 20px; font-size: 14px; }
-  .panel code { background: #eef2f6; padding: 1.5px 6px; border-radius: 5px; font-size: 12.5px; }
-  .links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
-  .links a { text-decoration: none; font-size: 13.5px; font-weight: 600; color: #2c3e50; background: #eef2f6; border: 1px solid var(--line); padding: 8px 14px; border-radius: 8px; }
-  .links a:hover { background: #e2e9f0; }
+  /* ---------- ranking table ---------- */
+  .table-wrap { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 13.5px; min-width: 860px; }
+  thead th { text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: .8px; color: var(--muted);
+             padding: 13px 14px; border-bottom: 1px solid var(--line); cursor: pointer; user-select: none; white-space: nowrap; position: sticky; top: 0; background: var(--surface); }
+  thead th:hover { color: var(--text); }
+  thead th.num, td.num { text-align: right; font-family: var(--mono); font-size: 12.8px; }
+  thead th::after { content: " \2195"; opacity: .35; font-size: 10px; }
+  thead th.sort-asc::after { content: " \2191"; opacity: 1; }
+  thead th.sort-desc::after { content: "\2193"; opacity: 1; }
+  tbody td { padding: 11px 14px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+  tbody tr:last-child td { border-bottom: none; }
+  tbody tr.top5-row { background: color-mix(in srgb, var(--green) 5%, transparent); }
+  tbody tr:hover { background: var(--surface-2); }
+  .ind { font-weight: 700; }
+  .dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 8px; vertical-align: 1px; }
+  .tier { font-size: 10.5px; font-weight: 700; padding: 2.5px 9px; border-radius: 999px; white-space: nowrap; }
+  .tier-inc { background: color-mix(in srgb, var(--blue) 13%, transparent); color: var(--blue); }
+  .tier-cha { background: color-mix(in srgb, var(--green) 15%, transparent); color: var(--green); }
+  .table-note { color: var(--muted); font-size: 12.5px; margin-top: 10px; }
 
-  footer { margin: 40px 0 46px; padding-top: 18px; border-top: 1px solid var(--line); color: var(--muted); font-size: 12.5px; }
+  /* ---------- charts ---------- */
+  figure { background: #ffffff; border: 1px solid var(--line); border-radius: var(--radius); padding: 12px; margin-bottom: 16px;
+           box-shadow: var(--shadow); cursor: zoom-in; overflow: hidden; transition: transform .25s; }
+  figure:hover { transform: translateY(-3px); }
+  figure img { width: 100%; height: auto; border-radius: 8px; display: block; }
+  figcaption { font-size: 12.5px; color: var(--muted); padding: 9px 5px 3px; }
+  .grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)); gap: 16px; }
+
+  /* ---------- method ---------- */
+  .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; }
+  .step { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px; box-shadow: var(--shadow); }
+  .step .n { font-family: var(--mono); font-weight: 700; font-size: 12px; color: #fff; background: linear-gradient(90deg, var(--indigo), var(--teal));
+             width: 28px; height: 28px; border-radius: 8px; display: grid; place-items: center; margin-bottom: 12px; }
+  .step h3 { font-size: 15px; font-weight: 800; margin-bottom: 6px; }
+  .step p { font-size: 13px; color: var(--muted); }
+  .algo-title { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); margin: 26px 0 12px; }
+  .algos { display: flex; flex-wrap: wrap; gap: 10px; }
+  .algo { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 10px 14px; font-size: 13px; }
+  .algo b { display: block; font-size: 13.5px; }
+  .algo span { font-size: 11.5px; color: var(--muted); }
+  .method-quote { margin-top: 24px; background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--indigo);
+                  border-radius: 12px; padding: 16px 20px; font-size: 14px; }
+  .repro { margin-top: 16px; font-size: 13px; }
+  .repro code { background: var(--surface-2); border: 1px solid var(--line); border-radius: 7px; padding: 10px 14px; display: inline-block; font-family: var(--mono); font-size: 12.5px; }
+
+  /* ---------- sources ---------- */
+  .src-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; }
+  .src-panel { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; box-shadow: var(--shadow); }
+  .src-panel h3 { font-size: 15px; font-weight: 800; margin-bottom: 10px; }
+  .src-panel ul { list-style: none; }
+  .src-panel li { font-size: 13px; color: var(--muted); padding: 6px 0 6px 20px; position: relative; border-bottom: 1px solid var(--line); }
+  .src-panel li:last-child { border-bottom: none; }
+  .src-panel li::before { content: "\25B8"; position: absolute; left: 4px; color: var(--teal); }
+
+  /* ---------- footer ---------- */
+  footer { margin-top: 60px; border-top: 1px solid var(--line); padding: 34px 0 46px; color: var(--muted); font-size: 13px; }
+  .foot-links { display: flex; flex-wrap: wrap; gap: 18px; margin-bottom: 14px; }
+  .foot-links a { text-decoration: none; font-weight: 600; color: var(--text); }
+  .foot-links a:hover { color: var(--teal); }
+
+  /* ---------- lightbox / to-top / reveal ---------- */
+  #lightbox { position: fixed; inset: 0; z-index: 100; background: rgba(8,12,22,.86); display: none; align-items: center; justify-content: center; flex-direction: column; padding: 28px; cursor: zoom-out; }
+  #lightbox.open { display: flex; }
+  #lightbox img { max-width: min(94vw, 1400px); max-height: 82vh; border-radius: 10px; background: #fff; }
+  #lightbox figcaption { color: #c8d4e2; padding-top: 12px; font-size: 13px; }
+  #toTop { position: fixed; right: 22px; bottom: 22px; z-index: 60; width: 42px; height: 42px; border-radius: 50%; border: 1px solid var(--line);
+           background: var(--surface); color: var(--text); font-size: 17px; cursor: pointer; opacity: 0; pointer-events: none; transition: opacity .3s; box-shadow: var(--shadow); }
+  #toTop.show { opacity: 1; pointer-events: auto; }
+  .reveal { opacity: 0; transform: translateY(20px); transition: opacity .6s ease, transform .6s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .hero { animation: none; }
+    .reveal { opacity: 1; transform: none; transition: none; }
+    .btn:hover, .card:hover, figure:hover { transform: none; }
+  }
 </style>
 </head>
 <body>
 
-<div class="hero">
+<header class="nav" id="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="#top"><span class="mark">&#9670;</span> DS/ML Industry Prospects</a>
+    <nav class="nav-links">
+      <a href="#results">Results</a>
+      <a href="#ranking">Ranking</a>
+      <a href="#charts">Charts</a>
+      <a href="#method">Method</a>
+      <a href="#sources">Sources</a>
+    </nav>
+    <a class="nav-cta" href="https://github.com/danielosinor123-gif/ds-ml-industry-prospects" target="_blank" rel="noopener">GitHub &#8599;</a>
+  </div>
+</header>
+
+<div class="hero" id="top">
   <div class="wrap">
-    <div class="kicker">Data science portfolio project</div>
-    <h1>The NEXT Top Industries for<br>Data Science & Machine Learning</h1>
-    <p class="sub">Beyond today's top-5: a 2026&ndash;2030 composite ranking of <b>13 candidate industries</b> &mdash; 5 incumbents vs 8 rising challengers &mdash; forecast with a backtest-weighted ensemble and scored on a transparent prospect index.</p>
+    <div class="kicker">Data science portfolio &middot; forecast 2026&ndash;2030</div>
+    <h1>The <em>NEXT</em> Top Industries for<br>Data Science & Machine Learning</h1>
+    <p class="sub">Beyond today's top-5: 13 candidate industries &mdash; 5 incumbents vs 8 rising challengers &mdash; forecast with a backtest-weighted ensemble, ranked by a transparent composite prospect index.</p>
     <div class="chips">
       <span class="chip">13 candidates</span>
-      <span class="chip">2026&ndash;2030 horizon</span>
       <span class="chip">ensemble + 90% bootstrap CIs</span>
-      <span class="chip">reproducible (seed 42)</span>
-      <span class="chip">runs on real data via --from-csv</span>
+      <span class="chip">logistic S-curve adoption</span>
+      <span class="chip">reproducible &middot; seed 42</span>
+      <span class="chip">runs on real data via <span class="num">--from-csv</span></span>
+    </div>
+    <div class="hero-ctas">
+      <a class="btn btn-primary" href="#results">View the results &darr;</a>
+      <a class="btn btn-ghost" href="outputs/reports/summary_report.md">Full report &#128196;</a>
+      <a class="btn btn-ghost" href="https://huggingface.co/spaces/danielaxv3/ds-ml-industry-prospects" target="_blank" rel="noopener">Hugging Face &#8599;</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hstat"><b>96.0</b><span>top composite score &middot; AI Infrastructure</span></div>
+      <div class="hstat"><b>3</b><span>challengers displace incumbents in the next top-5</span></div>
+      <div class="hstat"><b>$280B</b><span>largest projected 2030 DS/ML market</span></div>
+      <div class="hstat"><b>+19&ndash;35%</b><span>forecast CAGR range across all 13</span></div>
     </div>
   </div>
 </div>
 
-<div class="wrap">
+<main>
 
-  <section>
-    <h2>The predicted next top 5 (2026&ndash;2030)</h2>
-    <p class="note">Composite prospect index: growth 30% &middot; scale 25% &middot; investment 20% &middot; jobs 15% &middot; adoption 10% (min-max normalised across all 13 candidates).</p>
-    <div class="cards">
-      <div class="card c1"><div class="rank">#1</div><div class="name">AI Infrastructure</div><span class="badge inc">INCUMBENT &middot; HOLDS</span><div class="score">96.0</div><div class="meta">$62.9B &rarr; $279.7B &middot; +34.8% CAGR</div></div>
-      <div class="card c2"><div class="rank">#2</div><div class="name">Healthcare</div><span class="badge inc">INCUMBENT &middot; HOLDS</span><div class="score">59.6</div><div class="meta">$21.1B &rarr; $78.2B &middot; +30.0% CAGR</div></div>
-      <div class="card c3"><div class="rank">#3</div><div class="name">Climate & Sustainability Tech</div><span class="badge cha">&uarr; CHALLENGER &middot; BREAKS IN</span><div class="score">54.9</div><div class="meta">$4.6B &rarr; $17.7B &middot; +30.8% CAGR</div></div>
-      <div class="card c4"><div class="rank">#4</div><div class="name">Legal & Compliance Tech</div><span class="badge cha">&uarr; CHALLENGER &middot; BREAKS IN</span><div class="score">52.5</div><div class="meta">$3.2B &rarr; $12.1B &middot; +30.4% CAGR</div></div>
-      <div class="card c5"><div class="rank">#5</div><div class="name">Education & EdTech</div><span class="badge cha">&uarr; CHALLENGER &middot; BREAKS IN</span><div class="score">51.9</div><div class="meta">$4.9B &rarr; $18.3B &middot; +30.2% CAGR</div></div>
-    </div>
-    <div class="verdicts">
-      <div class="verdict v-hold"><b>Holding their spot</b>AI Infrastructure, Healthcare</div>
-      <div class="verdict v-in"><b>Challengers breaking in</b>Climate Tech, Legal Tech, Education & EdTech</div>
-      <div class="verdict v-out"><b>Incumbents dropping out</b>Defense & Cybersecurity (#8), Finance (#12), Energy & Industrials (#13)</div>
-    </div>
-  </section>
-
-  <section>
-    <h2>Key charts</h2>
-    <p class="note">All charts generated by the pipeline &mdash; history solid, ensemble forecasts dashed with 90% bootstrap bands.</p>
-    <div class="chart-wide">
-      <figure>
-        <img src="outputs/charts/00_summary_dashboard.png" alt="One-page summary dashboard: ranking, market trajectories, growth-scale map, verdicts">
-        <figcaption>One-page summary dashboard &mdash; composite ranking, market trajectories, growth&ndash;scale map and the hold / break-in / drop-out verdicts.</figcaption>
-      </figure>
-    </div>
-    <div class="chart-wide">
-      <figure>
-        <img src="outputs/charts/01_market_size_forecast.png" alt="Market size history and 2026-2030 forecast for 13 candidate industries">
-        <figcaption>DS/ML market size by candidate industry, 2015&ndash;2030. Predicted top-5 emphasised with 90% confidence bands.</figcaption>
-      </figure>
-    </div>
-    <div class="grid2">
-      <figure>
-        <img src="outputs/charts/05_composite_ranking.png" alt="Composite prospect ranking of 13 industries">
-        <figcaption>Full composite ranking &mdash; green zone marks the predicted next top-5; &uarr; = challenger.</figcaption>
-      </figure>
-      <figure>
-        <img src="outputs/charts/07_growth_scale_map.png" alt="Growth versus scale quadrant map">
-        <figcaption>The growth&ndash;scale map: momentum vs 2030 market size. Bubble = composite score; triangles = challengers.</figcaption>
-      </figure>
-      <figure>
-        <img src="outputs/charts/06_industry_profiles_radar.png" alt="Radar profiles of predicted top five">
-        <figcaption>Profiles of the predicted next top 5 across normalised components.</figcaption>
-      </figure>
-      <figure>
-        <img src="outputs/charts/04_adoption_curves.png" alt="ML adoption logistic curves">
-        <figcaption>ML adoption: logistic S-curve fits and 2030 projections.</figcaption>
-      </figure>
-      <figure>
-        <img src="outputs/charts/02_investment_forecast.png" alt="Investment forecast by industry">
-        <figcaption>DS/ML investment & funding, forecast to 2030.</figcaption>
-      </figure>
-      <figure>
-        <img src="outputs/charts/03_job_postings_forecast.png" alt="Job postings forecast by industry">
-        <figcaption>DS/ML job postings, forecast to 2030.</figcaption>
-      </figure>
-    </div>
-  </section>
-
-  <section>
-    <h2>Method in one paragraph</h2>
-    <div class="panel">
-      <p>A <b>backtest-weighted ensemble</b> of <b>log-linear OLS regression</b> (compound-growth model) and <b>damped Holt exponential smoothing</b> (ETS(A,Ad,N)-style) forecasts each candidate to 2030, with <b>90% residual-bootstrap prediction intervals</b>; bounded adoption rates use <b>logistic (Pearl&ndash;Reed) S-curves</b>. Candidates are ranked with a <b>min-max composite indicator</b> (OECD/JRC methodology). Weights are learned on a 3-year holdout, and every component is published so the ranking can be re-weighted and re-run: <code>pip install -r requirements.txt && python main.py</code>.</p>
-      <div class="links">
-        <a href="outputs/reports/summary_report.md">&#128196; Full written report</a>
-        <a href="SOURCES.md">&#128218; Data sources & algorithms</a>
-        <a href="data/industry_panel.csv">&#128202; Panel dataset (CSV)</a>
-        <a href="outputs/forecasts.csv">&#128200; All forecasts + CIs</a>
-        <a href="outputs/scores.csv">&#127942; Scores & components</a>
+  <!-- ======================= results ======================= -->
+  <section class="block reveal" id="results">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="idx">01 &middot; Results</div>
+        <h2>The predicted next top 5</h2>
+        <p>Composite prospect index: growth 30% &middot; scale 25% &middot; investment 20% &middot; jobs 15% &middot; adoption 10% &mdash; min-max normalised across all 13 candidates.</p>
+      </div>
+      <div class="cards">
+        <div class="card c1">
+          <div class="rank">#1</div><div class="name">AI Infrastructure</div>
+          <span class="badge inc">INCUMBENT &middot; HOLDS</span>
+          <div class="score">96.0</div>
+          <div class="bar"><i style="width:96%"></i></div>
+          <div class="meta">$62.9B &rarr; $279.7B &middot; +34.8% CAGR</div>
+        </div>
+        <div class="card c2">
+          <div class="rank">#2</div><div class="name">Healthcare</div>
+          <span class="badge inc">INCUMBENT &middot; HOLDS</span>
+          <div class="score">59.6</div>
+          <div class="bar"><i style="width:59.6%"></i></div>
+          <div class="meta">$21.1B &rarr; $78.2B &middot; +30.0% CAGR</div>
+        </div>
+        <div class="card c3">
+          <div class="rank">#3</div><div class="name">Climate & Sustainability Tech</div>
+          <span class="badge cha">&uarr; CHALLENGER &middot; BREAKS IN</span>
+          <div class="score">54.9</div>
+          <div class="bar"><i style="width:54.9%"></i></div>
+          <div class="meta">$4.6B &rarr; $17.7B &middot; +30.8% CAGR</div>
+        </div>
+        <div class="card c4">
+          <div class="rank">#4</div><div class="name">Legal & Compliance Tech</div>
+          <span class="badge cha">&uarr; CHALLENGER &middot; BREAKS IN</span>
+          <div class="score">52.5</div>
+          <div class="bar"><i style="width:52.5%"></i></div>
+          <div class="meta">$3.2B &rarr; $12.1B &middot; +30.4% CAGR</div>
+        </div>
+        <div class="card c5">
+          <div class="rank">#5</div><div class="name">Education & EdTech</div>
+          <span class="badge cha">&uarr; CHALLENGER &middot; BREAKS IN</span>
+          <div class="score">51.9</div>
+          <div class="bar"><i style="width:51.9%"></i></div>
+          <div class="meta">$4.9B &rarr; $18.3B &middot; +30.2% CAGR</div>
+        </div>
+      </div>
+      <div class="verdicts">
+        <div class="verdict v-hold">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#1F6FB2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7l8-4z"/><path d="M9 12l2 2 4-4"/></svg>
+          <div><b>Holding top-5</b><p>AI Infrastructure &middot; Healthcare</p></div>
+        </div>
+        <div class="verdict v-in">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#1E8449" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21V7"/><path d="M6 13l6-6 6 6"/><path d="M4 3h16"/></svg>
+          <div><b>Challengers breaking in</b><p>Climate Tech &middot; Legal Tech &middot; Education & EdTech</p></div>
+        </div>
+        <div class="verdict v-out">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#C0392B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v14"/><path d="M6 11l6 6 6-6"/><path d="M4 21h16"/></svg>
+          <div><b>Incumbents dropping out</b><p>Defense/Cyber (#8) &middot; Finance (#12) &middot; Energy/Industrials (#13)</p></div>
+        </div>
       </div>
     </div>
   </section>
 
-  <footer>
-    Dataset is benchmark-calibrated to published estimates (Grand View Research, Statista/Precedence, McKinsey State of AI, US BLS) &mdash; every 2025 value sits inside published ranges, and the pipeline runs unchanged on real data via <code>--from-csv</code>.
-    Reproducible end-to-end: seeded ensemble, deterministic pipeline. Numbers shown reflect seed 42, horizon 2026&ndash;2030.
-  </footer>
+  <!-- ======================= ranking ======================= -->
+  <section class="block reveal" id="ranking">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="idx">02 &middot; Full ranking</div>
+        <h2>All 13 candidates, every component</h2>
+        <p>Click any column header to sort. Green rows form the predicted next top-5. The instructive case: Finance has the second-largest 2030 market ($59.1B) yet ranks #12 &mdash; momentum beats size in a prospect index.</p>
+      </div>
+      <div class="table-wrap">
+        <table id="rankTable">
+          <thead>
+            <tr>
+              <th data-type="num">#</th>
+              <th data-type="str">Industry</th>
+              <th data-type="str">Tier</th>
+              <th class="num" data-type="num">Score</th>
+              <th class="num" data-type="num">CAGR</th>
+              <th class="num" data-type="num">2025</th>
+              <th class="num" data-type="num">2030</th>
+              <th class="num" data-type="num">Invest</th>
+              <th class="num" data-type="num">Jobs</th>
+              <th class="num" data-type="num">Adopt&rsquo;30</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="top5-row">
+              <td data-v="1">1</td><td class="ind"><span class="dot" style="background:#6C3483"></span>AI Infrastructure</td><td><span class="tier tier-inc">Incumbent</span></td>
+              <td class="num" data-v="96.0">96.0</td><td class="num" data-v="34.8">+34.8%</td><td class="num" data-v="62.9">$62.9B</td><td class="num" data-v="279.7">$279.7B</td><td class="num" data-v="36.7">+36.7%</td><td class="num" data-v="23.0">+23.0%</td><td class="num" data-v="92.1">92%</td>
+            </tr>
+            <tr class="top5-row">
+              <td data-v="2">2</td><td class="ind"><span class="dot" style="background:#00A499"></span>Healthcare</td><td><span class="tier tier-inc">Incumbent</span></td>
+              <td class="num" data-v="59.6">59.6</td><td class="num" data-v="30.0">+30.0%</td><td class="num" data-v="21.1">$21.1B</td><td class="num" data-v="78.2">$78.2B</td><td class="num" data-v="35.1">+35.1%</td><td class="num" data-v="20.5">+20.5%</td><td class="num" data-v="79.3">79%</td>
+            </tr>
+            <tr class="top5-row">
+              <td data-v="3">3</td><td class="ind"><span class="dot" style="background:#27AE60"></span>Climate & Sustainability Tech</td><td><span class="tier tier-cha">&uarr; Challenger</span></td>
+              <td class="num" data-v="54.9">54.9</td><td class="num" data-v="30.8">+30.8%</td><td class="num" data-v="4.6">$4.6B</td><td class="num" data-v="17.7">$17.7B</td><td class="num" data-v="32.7">+32.7%</td><td class="num" data-v="27.1">+27.1%</td><td class="num" data-v="65.6">66%</td>
+            </tr>
+            <tr class="top5-row">
+              <td data-v="4">4</td><td class="ind"><span class="dot" style="background:#D35400"></span>Legal & Compliance Tech</td><td><span class="tier tier-cha">&uarr; Challenger</span></td>
+              <td class="num" data-v="52.5">52.5</td><td class="num" data-v="30.4">+30.4%</td><td class="num" data-v="3.2">$3.2B</td><td class="num" data-v="12.1">$12.1B</td><td class="num" data-v="32.5">+32.5%</td><td class="num" data-v="25.7">+25.7%</td><td class="num" data-v="67.0">67%</td>
+            </tr>
+            <tr class="top5-row">
+              <td data-v="5">5</td><td class="ind"><span class="dot" style="background:#B58AD1"></span>Education & EdTech</td><td><span class="tier tier-cha">&uarr; Challenger</span></td>
+              <td class="num" data-v="51.9">51.9</td><td class="num" data-v="30.2">+30.2%</td><td class="num" data-v="4.9">$4.9B</td><td class="num" data-v="18.3">$18.3B</td><td class="num" data-v="32.6">+32.6%</td><td class="num" data-v="23.8">+23.8%</td><td class="num" data-v="69.7">70%</td>
+            </tr>
+            <tr>
+              <td data-v="6">6</td><td class="ind"><span class="dot" style="background:#8CBF26"></span>Agriculture & Food Tech</td><td><span class="tier tier-cha">&uarr; Challenger</span></td>
+              <td class="num" data-v="33.3">33.3</td><td class="num" data-v="25.3">+25.3%</td><td class="num" data-v="3.4">$3.4B</td><td class="num" data-v="10.6">$10.6B</td><td class="num" data-v="29.3">+29.3%</td><td class="num" data-v="21.6">+21.6%</td><td class="num" data-v="61.2">61%</td>
+            </tr>
+            <tr>
+              <td data-v="7">7</td><td class="ind"><span class="dot" style="background:#D81B60"></span>Telecom & Media</td><td><span class="tier tier-cha">&uarr; Challenger</span></td>
+              <td class="num" data-v="28.9">28.9</td><td class="num" data-v="26.0">+26.0%</td><td class="num" data-v="4.6">$4.6B</td><td class="num" data-v="14.6">$14.6B</td><td class="num" data-v="23.2">+23.2%</td><td class="num" data-v="17.1">+17.1%</td><td class="num" data-v="76.8">77%</td>
+            </tr>
+            <tr>
+              <td data-v="8">8</td><td class="ind"><span class="dot" style="background:#C0392B"></span>Defense & Cybersecurity</td><td><span class="tier tier-inc">Incumbent</span></td>
+              <td class="num" data-v="24.7">24.7</td><td class="num" data-v="22.7">+22.7%</td><td class="num" data-v="15.8">$15.8B</td><td class="num" data-v="43.9">$43.9B</td><td class="num" data-v="22.8">+22.8%</td><td class="num" data-v="16.5">+16.5%</td><td class="num" data-v="78.6">79%</td>
+            </tr>
+            <tr>
+              <td data-v="9">9</td><td class="ind"><span class="dot" style="background:#2C7873"></span>Transportation & Logistics</td><td><span class="tier tier-cha">&uarr; Challenger</span></td>
+              <td class="num" data-v="24.3">24.3</td><td class="num" data-v="23.4">+23.4%</td><td class="num" data-v="7.5">$7.5B</td><td class="num" data-v="21.4">$21.4B</td><td class="num" data-v="25.2">+25.2%</td><td class="num" data-v="17.4">+17.4%</td><td class="num" data-v="68.6">69%</td>
+            </tr>
+            <tr>
+              <td data-v="10">10</td><td class="ind"><span class="dot" style="background:#F1C40F"></span>Retail & E-commerce</td><td><span class="tier tier-cha">&uarr; Challenger</span></td>
+              <td class="num" data-v="22.8">22.8</td><td class="num" data-v="23.9">+23.9%</td><td class="num" data-v="11.5">$11.5B</td><td class="num" data-v="33.5">$33.5B</td><td class="num" data-v="22.4">+22.4%</td><td class="num" data-v="15.2">+15.2%</td><td class="num" data-v="73.1">73%</td>
+            </tr>
+            <tr>
+              <td data-v="11">11</td><td class="ind"><span class="dot" style="background:#5D6D7E"></span>Insurance</td><td><span class="tier tier-cha">&uarr; Challenger</span></td>
+              <td class="num" data-v="14.4">14.4</td><td class="num" data-v="20.3">+20.3%</td><td class="num" data-v="6.2">$6.2B</td><td class="num" data-v="15.5">$15.5B</td><td class="num" data-v="21.4">+21.4%</td><td class="num" data-v="15.1">+15.1%</td><td class="num" data-v="77.5">78%</td>
+            </tr>
+            <tr>
+              <td data-v="12">12</td><td class="ind"><span class="dot" style="background:#1F6FB2"></span>Finance</td><td><span class="tier tier-inc">Incumbent</span></td>
+              <td class="num" data-v="14.3">14.3</td><td class="num" data-v="19.2">+19.2%</td><td class="num" data-v="24.5">$24.5B</td><td class="num" data-v="59.1">$59.1B</td><td class="num" data-v="21.0">+21.0%</td><td class="num" data-v="11.9">+11.9%</td><td class="num" data-v="82.6">83%</td>
+            </tr>
+            <tr>
+              <td data-v="13">13</td><td class="ind"><span class="dot" style="background:#E67E22"></span>Energy & Industrials</td><td><span class="tier tier-inc">Incumbent</span></td>
+              <td class="num" data-v="13.2">13.2</td><td class="num" data-v="21.6">+21.6%</td><td class="num" data-v="11.1">$11.1B</td><td class="num" data-v="29.6">$29.6B</td><td class="num" data-v="18.3">+18.3%</td><td class="num" data-v="16.5">+16.5%</td><td class="num" data-v="68.6">69%</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Values from <span class="num">outputs/scores.csv</span> (seed 42). Invest/Jobs = forecast CAGRs of investment and job postings; Adopt&rsquo;30 = projected 2030 ML adoption rate. Re-weight the components and the full ranking re-computes in one run.</p>
+    </div>
+  </section>
 
+  <!-- ======================= charts ======================= -->
+  <section class="block reveal" id="charts">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="idx">03 &middot; Charts</div>
+        <h2>Visual evidence</h2>
+        <p>Generated by the pipeline &mdash; history solid, ensemble forecasts dashed with 90% bootstrap bands. Click any chart to enlarge.</p>
+      </div>
+      <figure>
+        <img src="outputs/charts/00_summary_dashboard.png" alt="One-page summary dashboard: ranking, market trajectories, growth-scale map and verdicts">
+        <figcaption>One-page summary dashboard &mdash; composite ranking, market trajectories, growth&ndash;scale map and verdicts.</figcaption>
+      </figure>
+      <figure>
+        <img src="outputs/charts/01_market_size_forecast.png" alt="Market size history and 2026-2030 forecast for 13 candidate industries">
+        <figcaption>DS/ML market size by candidate industry, 2015&ndash;2030. Predicted top-5 emphasised with 90% confidence bands.</figcaption>
+      </figure>
+      <div class="grid2">
+        <figure>
+          <img src="outputs/charts/05_composite_ranking.png" alt="Composite prospect ranking of 13 industries">
+          <figcaption>Full composite ranking &mdash; green zone marks the predicted next top-5; &uarr; = challenger.</figcaption>
+        </figure>
+        <figure>
+          <img src="outputs/charts/07_growth_scale_map.png" alt="Growth versus scale quadrant map">
+          <figcaption>Growth&ndash;scale map: momentum vs 2030 market size. Bubble = composite score; triangles = challengers.</figcaption>
+        </figure>
+        <figure>
+          <img src="outputs/charts/06_industry_profiles_radar.png" alt="Radar profiles of predicted top five">
+          <figcaption>Profiles of the predicted next top 5 across normalised components.</figcaption>
+        </figure>
+        <figure>
+          <img src="outputs/charts/04_adoption_curves.png" alt="ML adoption logistic curves">
+          <figcaption>ML adoption: logistic S-curve fits and 2030 projections.</figcaption>
+        </figure>
+        <figure>
+          <img src="outputs/charts/02_investment_forecast.png" alt="Investment forecast by industry">
+          <figcaption>DS/ML investment & funding, forecast to 2030.</figcaption>
+        </figure>
+        <figure>
+          <img src="outputs/charts/03_job_postings_forecast.png" alt="Job postings forecast by industry">
+          <figcaption>DS/ML job postings, forecast to 2030.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= method ======================= -->
+  <section class="block reveal" id="method">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="idx">04 &middot; Method</div>
+        <h2>How the forecast works</h2>
+        <p>With ~11 annual observations per series, heavyweight models (SARIMA, Prophet) would overfit. The pipeline uses two interpretable models, blended by backtest, with honest uncertainty.</p>
+      </div>
+      <div class="steps">
+        <div class="step"><div class="n">1</div><h3>Data panel</h3><p>13 industries &times; 2015&ndash;2025 &times; 5 indicators: market size, investment, job postings, ML adoption, AI patents. Benchmark-calibrated; runs on real data via <span class="num">--from-csv</span>.</p></div>
+        <div class="step"><div class="n">2</div><h3>Ensemble forecast</h3><p>Log-linear OLS growth regression + damped Holt exponential smoothing. Weights learned on a 3-year holdout (&prop; 1/MAPE); 90% residual-bootstrap intervals from 1,000 mixture-simulated paths.</p></div>
+        <div class="step"><div class="n">3</div><h3>Composite index</h3><p>Min-max normalised across 13 candidates (OECD/JRC methodology): growth 30 &middot; scale 25 &middot; investment 20 &middot; jobs 15 &middot; adoption 10. Adoption fitted with logistic S-curves (Pearl&ndash;Reed).</p></div>
+        <div class="step"><div class="n">4</div><h3>Ranking & report</h3><p>Composite scores, hold / break-in / drop-out analysis, 7 charts and a full written report &mdash; all generated by <span class="num">python main.py</span>, seeded and reproducible.</p></div>
+      </div>
+      <div class="algo-title">Algorithms, formally</div>
+      <div class="algos">
+        <div class="algo"><b>Log-linear regression</b><span>OLS on log(y) ~ t &mdash; compound-growth model</span></div>
+        <div class="algo"><b>Damped Holt's linear trend</b><span>Gardner & McKenzie (1985) &middot; ETS(A,Ad,N)-style</span></div>
+        <div class="algo"><b>Inverse-MAPE ensemble</b><span>Bates & Granger (1969) &middot; holdout backtest</span></div>
+        <div class="algo"><b>Residual bootstrap intervals</b><span>mixture of component models &middot; Hyndman et al. (2008)</span></div>
+        <div class="algo"><b>Pearl&ndash;Reed logistic S-curve</b><span>grid-searched ceiling + logit OLS</span></div>
+        <div class="algo"><b>Min-max composite indicator</b><span>OECD/JRC Handbook (2008)</span></div>
+      </div>
+      <div class="method-quote">
+        <b>In one line:</b> a backtest-weighted ensemble of log-linear OLS growth regression and damped Holt exponential smoothing, with residual-bootstrap prediction intervals, logistic S-curve adoption modeling, and a min-max composite indicator ranking.
+        <div class="repro"><code>pip install -r requirements.txt && python main.py</code> &nbsp;&rarr;&nbsp; data &rarr; forecast &rarr; score &rarr; charts &rarr; report, in ~10 seconds.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= sources ======================= -->
+  <section class="block reveal" id="sources">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="idx">05 &middot; Sources & limitations</div>
+        <h2>Data provenance, stated plainly</h2>
+        <p>The bundled dataset is benchmark-calibrated &mdash; every 2025 value sits inside published ranges. The pipeline is data-agnostic: swap in a real panel and every downstream step runs unchanged.</p>
+      </div>
+      <div class="src-grid">
+        <div class="src-panel">
+          <h3>Calibration sources</h3>
+          <ul>
+            <li>Grand View Research &mdash; AI in Healthcare, Insurance, Education, Legal markets</li>
+            <li>Statista / Precedence Research &mdash; AI market size by industry (BFSI, energy, retail, infrastructure)</li>
+            <li>McKinsey &mdash; The State of AI (adoption by industry & function)</li>
+            <li>US Bureau of Labor Statistics &mdash; Data Scientists occupational outlook</li>
+            <li>WIPO / Stanford HAI AI Index &mdash; patent activity & investment trends</li>
+            <li>Real-data upgrade: Stanford HAI, BLS OES, Lightcast, Crunchbase, WEF</li>
+          </ul>
+        </div>
+        <div class="src-panel">
+          <h3>Known limitations</h3>
+          <ul>
+            <li>Calibrated synthetic inputs &mdash; not scraped primary data (swap via <span class="num">--from-csv</span>)</li>
+            <li>Challenger-pool selection is a judgment call (config-driven, extensible)</li>
+            <li>Momentum-weighting favours small, fast bases over large, slow ones &mdash; deliberate and re-weightable</li>
+            <li>~11 observations per series; bootstrap CIs assume iid innovations &mdash; indicative, not exact</li>
+            <li>Logistic adoption model assumes a stationary ceiling per industry</li>
+            <li>No shock/regulatory scenario modelling (an AI act or defence surge would move these numbers)</li>
+            <li>Sector overlap: AI Infrastructure supplies the other sectors &mdash; some double counting</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-links">
+      <a href="https://github.com/danielosinor123-gif/ds-ml-industry-prospects" target="_blank" rel="noopener">GitHub &#8599;</a>
+      <a href="https://huggingface.co/spaces/danielaxv3/ds-ml-industry-prospects" target="_blank" rel="noopener">Hugging Face Space &#8599;</a>
+      <a href="outputs/reports/summary_report.md">Full report</a>
+      <a href="SOURCES.md">Sources & algorithms</a>
+      <a href="data/industry_panel.csv">Panel dataset (CSV)</a>
+      <a href="outputs/forecasts.csv">All forecasts + CIs</a>
+      <a href="outputs/scores.csv">Scores & components</a>
+    </div>
+    <p>Dataset benchmark-calibrated to published estimates (Grand View Research, Statista/Precedence, McKinsey State of AI, US BLS). Numbers shown reflect seed 42, horizon 2026&ndash;2030. Reproducible end-to-end: seeded ensemble, deterministic pipeline.</p>
+  </div>
+</footer>
+
+<button id="toTop" aria-label="Back to top">&uarr;</button>
+
+<div id="lightbox" role="dialog" aria-modal="true" aria-label="Enlarged chart">
+  <img src="" alt="">
+  <figcaption></figcaption>
 </div>
+
+<script>
+(function () {
+  // sticky nav shadow
+  var nav = document.getElementById("nav");
+  var toTop = document.getElementById("toTop");
+  window.addEventListener("scroll", function () {
+    nav.classList.toggle("scrolled", window.scrollY > 8);
+    toTop.classList.toggle("show", window.scrollY > 600);
+  }, { passive: true });
+  toTop.addEventListener("click", function () { window.scrollTo({ top: 0, behavior: "smooth" }); });
+
+  // scroll reveal
+  var reveals = document.querySelectorAll(".reveal");
+  if ("IntersectionObserver" in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add("visible"); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.08 });
+    reveals.forEach(function (el) { io.observe(el); });
+  } else {
+    reveals.forEach(function (el) { el.classList.add("visible"); });
+  }
+
+  // sortable ranking table
+  var table = document.getElementById("rankTable");
+  if (table) {
+    var ths = table.querySelectorAll("thead th");
+    ths.forEach(function (th, colIdx) {
+      th.addEventListener("click", function () {
+        var type = th.getAttribute("data-type") || "str";
+        var tbody = table.querySelector("tbody");
+        var rows = Array.prototype.slice.call(tbody.querySelectorAll("tr"));
+        var desc = th.classList.contains("sort-asc");
+        ths.forEach(function (h) { h.classList.remove("sort-asc", "sort-desc"); });
+        th.classList.add(desc ? "sort-desc" : "sort-asc");
+        rows.sort(function (a, b) {
+          var ca = a.children[colIdx], cb = b.children[colIdx];
+          if (type === "num") {
+            var va = parseFloat(ca.getAttribute("data-v")), vb = parseFloat(cb.getAttribute("data-v"));
+            return desc ? vb - va : va - vb;
+          }
+          var ta = ca.textContent.trim().toLowerCase(), tb = cb.textContent.trim().toLowerCase();
+          return desc ? tb.localeCompare(ta) : ta.localeCompare(tb);
+        });
+        rows.forEach(function (r) { tbody.appendChild(r); });
+      });
+    });
+  }
+
+  // chart lightbox
+  var lb = document.getElementById("lightbox");
+  var lbImg = lb.querySelector("img");
+  var lbCap = lb.querySelector("figcaption");
+  document.querySelectorAll("figure img").forEach(function (img) {
+    img.parentElement.addEventListener("click", function () {
+      lbImg.src = img.src;
+      lbImg.alt = img.alt;
+      lbCap.textContent = img.parentElement.querySelector("figcaption").textContent;
+      lb.classList.add("open");
+      document.body.style.overflow = "hidden";
+    });
+  });
+  function closeLb() { lb.classList.remove("open"); document.body.style.overflow = ""; lbImg.src = ""; }
+  lb.addEventListener("click", closeLb);
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeLb(); });
+})();
+</script>
+
 </body>
 </html>
